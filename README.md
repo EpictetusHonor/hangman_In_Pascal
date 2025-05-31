@@ -1,2 +1,2 @@
 # Hangman-in-pascal
-Educational implementation of the Hangman game in Pascal, focusing on structured logic, control flow, and modular organization.
+Practice project in Pascal: a console-based Hangman game applying structured programming and clear control flow.
