@@ -3,7 +3,7 @@ Practice project in Pascal: a console-based Hangman game applying structured pro
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
->❌  Actually it's not working... please be carefull <br>
+>✅  Actually working! but with some bugs <br>
 
                 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
