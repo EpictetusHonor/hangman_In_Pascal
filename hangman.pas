@@ -17,10 +17,10 @@ procedure welcome;
 begin
     writeln('-----------------------------WELCOME TO HANGMAN!!!!-----------------------------');
     writeln;
-    writeln('CHOOSE ONE OPTION: (just press some of that numbers and enter)');
+    writeln('CHOOSE ONE OPTION: (just press one of those numbers and press enter)');
     writeln('1- Classic');
     // writeln('2- Competitive (1v1 with 2 words)');
-    // writeln('3- One Player Mode');
+    // writeln('3- One Player Mode (Random words just to pass the time)');
 end;
 procedure writeyourword;
 begin
@@ -366,7 +366,7 @@ begin
         if ((WLtries = 0)or(WLtries = 1)) then begin
             writeln('WELL PLAYED MAN! JUST THE ONE POINT CERO PERCENT HAVE THIS ACHIEVEMENT... trust me, is JUST LIKE HACKING!');
             writeln;
-            writeln('Changing the subject, totally unrelated question... do you think there’s a hacker nearby?');
+            writeln('Changing the subject, totally unrelated question... do you think there"s a hacker nearby?');
             repeat
                 read(aux2);
                 if (not(aux2 = 'y') and not(aux2 = 'n') and not(aux2 = 'Y') and not(aux2 = 'N')) then begin 
@@ -424,17 +424,21 @@ begin
     repeat 
         welcome;
         readln(mode);
+        while (mode<>1) do begin //thats for someone's who don't read instructions
+            writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
+            readln(mode);
+            end;
         chargingModule;
         picCreator(pic); // create the picture of the hangman and insert in array
 
         if mode=1 then
-            ClassicFirstModule(wordd,show);
-        loadArray(logic_dim,arrayy,wordd);
-        mainAxis(logic_dim,arrayy,wordd,show,pic);
+            ClassicFirstModule(wordd,show); //first classic game
+        loadArray(logic_dim,arrayy,wordd); //the classic loader for arrays
+        mainAxis(logic_dim,arrayy,wordd,show,pic); //the main axis, in here you have all the principal program 
         repeat
-            writeln('You want to GO to the MAIN MENU? y/n');
+            writeln('You want to GO to the MAIN MENU? y/n'); 
             readln(endd);
-            until ((endd = 'y') or (endd = 'Y') or (endd = 'n') or (endd = 'N'))
+            until ((endd = 'y') or (endd = 'Y') or (endd = 'n') or (endd = 'N'));
         until((endd='n') or (endd='N'));
 end;
 
