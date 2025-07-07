@@ -447,17 +447,20 @@ var
     logic_dim: integer;
     pic: picture;
 begin
-    repeat 
-        welcome;
+    welcome;
+    repeat
+        writeln;
+        writeln('-------------------------------------');
+        writeln('Do you need to know the instructions?');
+        writeln('-------------------------------------');
+        readln(instructionsYN);
+        until ((instructionsYN = 'y') or (instructionsYN = 'Y') or (instructionsYN = 'n') or (instructionsYN = 'N'));
+    repeat
         //readln(mode);
         //while (mode<>1) do begin //thats for someone's who don't read instructions
         //    writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
         //    readln(mode);
         //    end;
-        repeat
-            writeln('Do you need to know the rules?');
-            readln(rulesYN);
-            until ((rulesYN = 'y') or (rulesYN = 'Y') or (rulesYN = 'n') or (rulesYN = 'N'));
         if (instructionsYN = 'y') or (instructionsYN = 'Y') then begin
             instructions;
             welcome;
