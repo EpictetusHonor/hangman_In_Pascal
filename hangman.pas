@@ -1,5 +1,5 @@
 program hangman;
-const MAX_LIFES = 7;
+const MAX_LIFES = 6;
 type
     range = 1..46;  // range of letters, 46 is the maximum letters that i think is needed
     range2 = 0..MAX_LIFES;
@@ -106,13 +106,14 @@ begin
     writeln('                Charging');
     for i:=1 to 2 do begin
         for j:=1 to 3 do begin
-           chargingDelay(1000);
-           write('.');
+           chargingDelay(10);
+           write(' ');
            end;
-        end;
+        writeln;
+    end;
     write('                [');
     for i:=1 to 8 do begin
-        chargingDelay(1000);
+        chargingDelay(10000);
         write('-');
         end;
     writeln(']');
@@ -154,15 +155,11 @@ begin
     pic[5].draw3:=' ___';
     pic[5].draw2:=' | o';
     pic[5].draw1:=' |/|\';
-    pic[5].draw0:=' |';
+    pic[5].draw0:=' |/';
     pic[6].draw3:=' ___';
-    pic[6].draw2:=' | o';
-    pic[6].draw1:=' |/|\';
-    pic[6].draw0:=' |/';
-    pic[7].draw3:=' ___';
-    pic[7].draw2:=' |(.';
-    pic[7].draw1:=' |/|\              ||YOU LOSE!||';
-    pic[7].draw0:=' |/ \';
+    pic[6].draw2:=' |(.';
+    pic[6].draw1:=' |/|\              ||YOU LOSE!||';
+    pic[6].draw0:=' |/ \';
 end;
 procedure picModule (pic:picture;lostLf:integer);
 begin
@@ -283,7 +280,7 @@ begin
     aux:= true;
     tries:= tries+1;           //one tries left
     for i:=1 to lD do begin                                           
-        if( w[i] = uL ) then begin // if the word letter is the same of new letter then
+        if( w[i] = uL ) then begin // if the word letter is the same of new letter then //tengo que mejorar esto! mi plan? crear una lista con los datos correctos en lugares ordenados, un insertar ordenado seria correcto, problema? las letras no estan ordenadas, pero si estan ordenadas en el vector! entonces deberia tomar una variable y tomar
             a[i]:= uL;  //change the array with the letters modified
             totL:= totL+1; //add one to added letters
             aux:= false; //add one here to know the letter is correct next
@@ -294,7 +291,7 @@ begin
         lL:= lL+1;
     end;
 end;
-procedure showSomeLetters(lD:integer;a:letters;totL:integer); // show the letters you have at the moment
+procedure showSomeLetters(lD:integer;a:letters;totL:integer;final:boolean); // show the letters you have at the moment
 var
     aux:integer;i:integer;
 begin                     
@@ -302,16 +299,65 @@ begin
     writeln;
     for i:=1 to lD do
         write(a[i],' ');
-    if (aux<=2) then begin
+    if (not(final)) then begin //ver para simplificar, que si es 7 vidas no se muestre, resuelve cosas.
+        if (aux<=2) then begin
+            writeln;
+            writeln('---- You have ', aux, ' letters left! You can do it? ----');
+            writeln;
+        end
+        else begin
+            writeln;
+            writeln('---- You have ', aux,' letters left! ----');
+            writeln;
+            end;
+    end;
+end;
+procedure sameWord (var arr:letters;lD:integer;wordd:string);
+var
+    i:integer;
+begin
+    for i:=1 to lD do
+        arr[i]:=wordd[i];  // select one 'char' per vector of the array of string
+end;
+procedure winner_Loser (WLlL:range2;WLshow:boolean;WLpic:picture;WLtries:integer;WLarr:letters;WLlD:integer;WLword:string; WLtotL:integer); // This WL the winner or loser message and some statistics
+var
+    final:boolean;
+begin
+    final:=true;
+    if (WLlL>=MAX_LIFES) then begin
         writeln;
-        writeln('---- You have ', aux, ' letters left! You can do it? ----');
-        writeln;
+        writeLn('--------------------------------------------');
+        writeln('YOU LOSE THE ',WLlL,' LIFES IN ',WLtries,' WLtries');
+        if WLshow then begin
+            writeln('The correct answer was: ',WLword);
+            sameWord(WLarr,WLlD,WLword);           // This inserts the WL letter by letter in array 
+            showSomeLetters(WLlD,WLarr,WLtotL,final);        // To WL in display like hangman
+        end
+        else begin
+            writeln('The WORD WLPICKER don"t want to WL the CORRECT ANSWER.');
+            writeLn('-----------------------------------------------------');    
+        end;
     end
     else begin
-        writeln;
-        writeln('---- You have ', aux,' letters left! ----');
-        writeln;
+        winner;
+        writeln('You GUESSED the WL in ', WLtries,' TRIES, losing ',WLlL,' LIFES.' );
+        if (WLtries >= 4) then begin
+            writeln('Come on! You can do this better!');
+        end
+        else begin
+            if (WLtries > 1) and (WLtries < 3) then begin
+                writeln('Ok... it"s just the normal stuff');
+            end
+            else begin
+                if (WLtries = 1) then
+                    writeln('WEWLLL PLAYED MAN! JUST THE ONE PERCENT...but, between you and me... you have some cheat or something?');
+            end;
         end;
+    end;
+    writeln;
+    writeln;
+    writeln;
+    writeln('-- GAME OVER --');        
 end;
 
 procedure mainAxis (lD:integer;arr:letters;wrd:string;show:boolean;pic:picture);  //This is the most important PROCESS, the life of the program the MAIN AXIS!
@@ -321,6 +367,7 @@ var
     totLet:integer; // total letters
     lostLifes:range2; // losted lifes
     tries:integer; // counter of tries
+    final:boolean;
 begin
     totLet:=0;  // total let
     tries:=0;  // counter
@@ -328,19 +375,19 @@ begin
     lostLifes:=0; // losted lifes
     letstartthegame;
     writeLn('The word has ',lD,' letters, you have ',MAX_LIFES,' lifes.');
-
+    final:=false;
+    
     while (totLet<lD) and (lostLifes<MAX_LIFES) do begin                         // To stop when: 'total letters' are the same of 'word' and lostLifes has a 7
         writeLn('Insert some letter and press enter, COME ON!');
         readLn(usrL);
 
         searchAndInsert(arr,wrd,totLet,usrL,lostLifes,tries,lD);            // search and insert letters in array
         picModule(pic,lostLifes);
-        showSomeLetters(lD,arr,totLet);
+        showSomeLetters(lD,arr,totLet,final);
         possibleChallenge(totLet,aux,wrd,lostLifes,lD,tries);
     end;    
 
-    chargingModule;
-    //winner_Loser (lostLifes,show,pic,tries,arr,lD,wrd,totL); // show the winner or loser message and some statistics
+    winner_Loser (lostLifes,show,pic,tries,arr,lD,wrd,totLet); // show the winner or loser message and some statistics
 end;
 procedure mainMenu;
 var
@@ -365,7 +412,7 @@ begin
             writeln('You want to GO to the MAIN MENU? y/n');
             readln(endd);
             until ((endd = 'y') or (endd = 'Y') or (endd = 'n') or (endd = 'N'))
-        until((endd='y') or (endd='Y'));
+        until((endd='n') or (endd='N'));
 end;
 
 begin           // main program
