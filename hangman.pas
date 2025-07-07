@@ -221,7 +221,7 @@ begin
                     totL:=lD;
                 end
                 else begin
-                    lL:=lL+7;
+                    lL:=lL+6;
                     end;
             end
             else begin
@@ -248,21 +248,23 @@ begin
     if ((aux = 'y') or (aux = 'Y')) then begin
         saythewordandwin;
         repeat
-            writeLn('You are agree with that shit? y/n'); readln(aux2);
+            writeLn('You are agree with that? y/n'); readln(aux2);
             if (not(aux2 = 'y') and not(aux2 = 'n') and not(aux2 = 'Y') and not(aux2 = 'N')) then begin 
                 makeMistake2;
                 end;
             until((aux2 = 'y') or (aux2 = 'n') or (aux2 = 'Y') or (aux2 = 'N'));
         if ( (aux2 = 'n') or (aux2 = 'N') ) then begin
-            writeLn('You just lost 1 life for being a pussy. You see that?');
+            writeLn('You just lost 1 life for for discrediting your honor... muck');
             writeln;
             writeln;
-            lL:=lL-1;
-        end;
-        writeln;
-        cantGoOut;
-        writeln;
-        takeTheRiskChallenge(wrd,aux,totL,lD,tries,lL);
+            lL:=lL+1;
+        end
+        else begin
+            writeln;
+            cantGoOut;
+            writeln;
+            takeTheRiskChallenge(wrd,aux,totL,lD,tries,lL);
+            end;
     end;
 end;
 procedure possibleChallenge (var totL:integer;var aux:boolean;var wrd:string;var lostLifes:range2;lD:integer;var tries:integer);    
@@ -272,25 +274,36 @@ begin
         aux:=true;
     end;
 end;
-procedure searchAndInsert(var a:letters;w:string;var totL:integer;uL:char;var lL:range2;var tries:integer;lD:integer);   // For any position of the array string compare if input letter is equal to the correct letter,
+//------------------------------------------------------------------------------------------------
+procedure delete(var theword:string;position:integer);
+begin
+    theword[position]:='_';
+end;
+procedure addForTheWordDiscoverArray(var discoverArray:letters;i:integer;var newLetter:char);
+begin
+    discoverArray[i]:=newLetter;
+end;
+procedure searchAndInsert(var a:letters;var w:string;var totL:integer;insertedLetter:char;var lL:range2;var tries:integer;lD:integer);   // For any position of the array string compare if input letter is equal to the correct letter,
 var                                             // same of the entrys but reduced                                       // next this insert the letter to the corrects positions in the array
     i:integer;
-    aux:boolean;
+    notLetter:boolean;
 begin
-    aux:= true;
+    notLetter:= true;
     tries:= tries+1;           //one tries left
     for i:=1 to lD do begin                                           
-        if( w[i] = uL ) then begin // if the word letter is the same of new letter then //tengo que mejorar esto! mi plan? crear una lista con los datos correctos en lugares ordenados, un insertar ordenado seria correcto, problema? las letras no estan ordenadas, pero si estan ordenadas en el vector! entonces deberia tomar una variable y tomar
-            a[i]:= uL;  //change the array with the letters modified
+        if( w[i] = insertedLetter ) then begin // if the word letter is the same of new letter then //tengo que mejorar esto! mi plan? crear una lista con los datos correctos en lugares ordenados, un insertar ordenado seria correcto, problema? las letras no estan ordenadas, pero si estan ordenadas en el vector! entonces deberia tomar una variable y tomar
+            delete(w,i); // delete the letter of the word in all the places
+            addForTheWordDiscoverArray(a,i,insertedLetter); //change the array with the letters modified 
             totL:= totL+1; //add one to added letters
-            aux:= false; //add one here to know the letter is correct next
+            notLetter:= false; // false here if the letter is correct next
             end;
         end;
 
-    if ( aux ) then begin  //if the letter wasn't correct, you lost one life
+    if ( notLetter ) then begin  //if the letter wasn't correct, you lost one life
         lL:= lL+1;
     end;
 end;
+//--------------------------------------------------------------------------------------------------------------
 procedure showSomeLetters(lD:integer;a:letters;totL:integer;final:boolean); // show the letters you have at the moment
 var
     aux:integer;i:integer;
@@ -322,36 +335,46 @@ end;
 procedure winner_Loser (WLlL:range2;WLshow:boolean;WLpic:picture;WLtries:integer;WLarr:letters;WLlD:integer;WLword:string; WLtotL:integer); // This WL the winner or loser message and some statistics
 var
     final:boolean;
+    aux2:char;
+    email:string;
 begin
     final:=true;
     if (WLlL>=MAX_LIFES) then begin
         writeln;
-        writeLn('--------------------------------------------');
-        writeln('YOU LOSE THE ',WLlL,' LIFES IN ',WLtries,' WLtries');
+        writeLn('-----------------------------------------------------------------------------------------------');
+        writeln('YOU LOSE THE ',WLlL,' LIFES IN ',WLtries,' TRIES');
         if WLshow then begin
             writeln('The correct answer was: ',WLword);
             sameWord(WLarr,WLlD,WLword);           // This inserts the WL letter by letter in array 
             showSomeLetters(WLlD,WLarr,WLtotL,final);        // To WL in display like hangman
         end
         else begin
-            writeln('The WORD WLPICKER don"t want to WL the CORRECT ANSWER.');
-            writeLn('-----------------------------------------------------');    
+            writeln('The HONORABLE WORD LETTER PICKER don"t want to SHOW the CORRECT ANSWER. UNRESPECT FOR HIM.');
+            writeLn('------------------------------------------------------------------------------------------');    
         end;
     end
     else begin
         winner;
-        writeln('You GUESSED the WL in ', WLtries,' TRIES, losing ',WLlL,' LIFES.' );
-        if (WLtries >= 4) then begin
-            writeln('Come on! You can do this better!');
-        end
-        else begin
-            if (WLtries > 1) and (WLtries < 3) then begin
-                writeln('Ok... it"s just the normal stuff');
-            end
-            else begin
-                if (WLtries = 1) then
-                    writeln('WEWLLL PLAYED MAN! JUST THE ONE PERCENT...but, between you and me... you have some cheat or something?');
-            end;
+        writeln('You GUESSED the WORD in ', WLtries,' TRIES, losing ',WLlL,' LIFES.' );
+        case WLlL of
+            0: writeln('Ok man, so good! You did an excellent job -- your achievement was so huge it gave about ten grandmothers around the world a heart attack. Congratulations fos killing your grandma! Asshole.');
+            1..3: writeln('Well play!');
+            4..MAX_LIFES: writeln('Come on! You can do this better!');
+            else
+                writeln('Unknown value!');
+        end;
+        if ((WLtries = 0)or(WLtries = 1)) then begin
+            writeln('WELL PLAYED MAN! JUST THE ONE POINT CERO PERCENT HAVE THIS ACHIEVEMENT... trust me, is JUST LIKE HACKING!');
+            writeln;
+            writeln('Changing the subject, totally unrelated question... do you think there’s a hacker nearby?');
+            repeat
+                read(aux2);
+                if (not(aux2 = 'y') and not(aux2 = 'n') and not(aux2 = 'Y') and not(aux2 = 'N')) then begin 
+                    makeMistake2;
+                    end;
+                until((aux2 = 'y') or (aux2 = 'n') or (aux2 = 'Y') or (aux2 = 'N'));
+            writeln('ok, just insert your email... just for fun! haha... ha');
+            read(email);
         end;
     end;
     writeln;
