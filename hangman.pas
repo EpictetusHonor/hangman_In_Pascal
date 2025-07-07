@@ -17,8 +17,8 @@ procedure welcome;
 begin
     writeln('-----------------------------WELCOME TO HANGMAN!!!!-----------------------------');
     writeln;
-    writeln('CHOOSE ONE OPTION: (just press one of those numbers and press enter)');
-    writeln('1- Classic');
+    //writeln('CHOOSE ONE OPTION: (just press one of those numbers and press Enter)');
+    //writeln('1- Classic');
     // writeln('2- Competitive (1v1 with 2 words)');
     // writeln('3- One Player Mode (Random words just to pass the time)');
 end;
@@ -103,7 +103,7 @@ var
 begin
     writeln;
     writeln;
-    writeln('                Charging');
+    writeln('                 Charging');
     for i:=1 to 2 do begin
         for j:=1 to 3 do begin
            chargingDelay(10);
@@ -423,20 +423,20 @@ var
 begin
     repeat 
         welcome;
-        readln(mode);
-        while (mode<>1) do begin //thats for someone's who don't read instructions
-            writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
-            readln(mode);
-            end;
+        //readln(mode);
+        //while (mode<>1) do begin //thats for someone's who don't read instructions
+        //    writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
+        //    readln(mode);
+        //    end;
         chargingModule;
         picCreator(pic); // create the picture of the hangman and insert in array
 
-        if mode=1 then
-            ClassicFirstModule(wordd,show); //first classic game
-        loadArray(logic_dim,arrayy,wordd); //the classic loader for arrays
-        mainAxis(logic_dim,arrayy,wordd,show,pic); //the main axis, in here you have all the principal program 
+        //if mode=1 then
+        ClassicFirstModule(wordd,show);
+        loadArray(logic_dim,arrayy,wordd);
+        mainAxis(logic_dim,arrayy,wordd,show,pic);
         repeat
-            writeln('You want to GO to the MAIN MENU? y/n'); 
+            writeln('You want to GO to the MAIN MENU? y/n');
             readln(endd);
             until ((endd = 'y') or (endd = 'Y') or (endd = 'n') or (endd = 'N'));
         until((endd='n') or (endd='N'));
