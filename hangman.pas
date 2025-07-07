@@ -463,7 +463,6 @@ begin
         //    end;
         if (instructionsYN = 'y') or (instructionsYN = 'Y') then begin
             instructions;
-            welcome;
         end;
         chargingModule;
         picCreator(pic); // create the picture of the hangman and insert in array
