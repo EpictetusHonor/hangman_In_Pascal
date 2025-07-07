@@ -412,13 +412,39 @@ begin
 
     winner_Loser (lostLifes,show,pic,tries,arr,lD,wrd,totLet); // show the winner or loser message and some statistics
 end;
+procedure instructions;
+begin
+    writeln;
+    writeln;
+    writeln('----------------------');
+    writeln('Hangman - Instructions');
+    writeln('----------------------');
+    writeln;
+    writeln;
+    writeln('Hangman is a game designed for two players: one player provides a secret word, and the other players');
+    writeln('objective is to guess that word in as few attempts as possible.');
+    writeln;
+    writeln('In this version of Hangman, you have 6 attempts to guess the word correctly. Additionally, there is one secret');
+    writeln('chance available when you are close to completing the word.');
+    writeln;
+    writeln('Currently, only the classic mode is available. However, future updates may include a single-player mode, and');
+    writeln('there are plans to develop an online multiplayer mode (Intended solely for educational purposes, should genuine');
+    writeln('interest in the project arise. If implemented, the game will likely be hosted on a website.)');
+    writeln('This game is a simple project, thoughtfully crafted with care by Tomás Agustín Rossi, currently known under');
+    writeln('the temporary alias EpictetusHonor.');
+    writeln;
+    writeln;
+    writeln('If you wish to return, press Enter.');
+    readln;
+end;
 procedure mainMenu;
 var
     wordd: string;
-    endd: char;
+    endd,instructionsYN: char;
     show: boolean;
     arrayy: letters;
-    mode,logic_dim: integer;
+    //mode:integer;
+    logic_dim: integer;
     pic: picture;
 begin
     repeat 
@@ -428,6 +454,14 @@ begin
         //    writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
         //    readln(mode);
         //    end;
+        repeat
+            writeln('Do you need to know the rules?');
+            readln(rulesYN);
+            until ((rulesYN = 'y') or (rulesYN = 'Y') or (rulesYN = 'n') or (rulesYN = 'N'));
+        if (instructionsYN = 'y') or (instructionsYN = 'Y') then begin
+            instructions;
+            welcome;
+        end;
         chargingModule;
         picCreator(pic); // create the picture of the hangman and insert in array
 
