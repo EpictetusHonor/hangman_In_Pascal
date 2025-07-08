@@ -97,7 +97,7 @@ begin
         for j:=1 to 1000 do
         ;
 end;
-procedure chargingModule;
+procedure chargingModule; // only in here i receive  some help with chatgpt, credits for him... great idea.
 var
     i,j:integer;
 begin
@@ -291,9 +291,9 @@ begin
     notLetter:= true;
     tries:= tries+1;           //one tries left
     for i:=1 to lD do begin                                           
-        if( w[i] = insertedLetter ) then begin // if the word letter is the same of new letter then //tengo que mejorar esto! mi plan? crear una lista con los datos correctos en lugares ordenados, un insertar ordenado seria correcto, problema? las letras no estan ordenadas, pero si estan ordenadas en el vector! entonces deberia tomar una variable y tomar
-            delete(w,i); // delete the letter of the word in all the places
+        if( w[i] = insertedLetter ) then begin // if the word letter is the same of new letter then...
             addForTheWordDiscoverArray(a,i,insertedLetter); //change the array with the letters modified 
+            delete(w,i); // delete the letter of the word in all the places
             totL:= totL+1; //add one to added letters
             notLetter:= false; // false here if the letter is correct next
             end;
@@ -312,7 +312,7 @@ begin
     writeln;
     for i:=1 to lD do
         write(a[i],' ');
-    if (not(final)) then begin //ver para simplificar, que si es 7 vidas no se muestre, resuelve cosas.
+    if (not(final)) then begin // if you lose this avoid inspiring you to continue... you don't have the honor, and letters!.
         if (aux<=2) then begin
             writeln;
             writeln('---- You have ', aux, ' letters left! You can do it? ----');
@@ -332,7 +332,7 @@ begin
     for i:=1 to lD do
         arr[i]:=wordd[i];  // select one 'char' per vector of the array of string
 end;
-procedure winner_Loser (WLlL:range2;WLshow:boolean;WLpic:picture;WLtries:integer;WLarr:letters;WLlD:integer;WLword:string; WLtotL:integer); // This WL the winner or loser message and some statistics
+procedure winner_Loser (WLlL:range2;WLshow:boolean;WLpic:picture;WLtries:integer;WLarr:letters;WLlD:integer;WLword:string; WLtotL:integer); // This is the winner or loser message and some statistics when you end the game
 var
     final:boolean;
     aux2:char;
@@ -391,7 +391,9 @@ var
     lostLifes:range2; // losted lifes
     tries:integer; // counter of tries
     final:boolean;
+    showword:string;
 begin
+    showword:=wrd; // when you lose is the word you show to the public
     totLet:=0;  // total let
     tries:=0;  // counter
     aux:=false;  // for challenge
@@ -410,7 +412,7 @@ begin
         possibleChallenge(totLet,aux,wrd,lostLifes,lD,tries);
     end;    
 
-    winner_Loser (lostLifes,show,pic,tries,arr,lD,wrd,totLet); // show the winner or loser message and some statistics
+    winner_Loser (lostLifes,show,pic,tries,arr,lD,showword,totLet); // show the winner or loser message and some statistics
 end;
 procedure instructions;
 begin
