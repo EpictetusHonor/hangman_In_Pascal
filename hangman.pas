@@ -211,8 +211,14 @@ begin
     else begin
         if (lL<4) then begin
             writeln;
-            writeln('Another opportunity? (In here you just loses some lifes but if you accept and lose, you lose the game!) y/n');
-            readln(a);
+            repeat
+                writeln('Another opportunity? (In here you just loses some lifes but if you accept and lose, you lose the game!) y/n');
+                readln(a);
+                if ((a <> 'y') and (a <> 'n') and (a <> 'Y') and (a <> 'N')) then
+                    writeln;
+                    writeln('You can do it well, come on, i trust you are not idiot. Just push the letters y/n');
+                    writeln;
+                until((a = 'y') or (a = 'n') or (a = 'Y') or (a = 'N'));
             if ((a = 'y') or (a = 'Y')) then begin
                 writeln('WRITE your ANSWER (only lowercase)');
                 readln(a2);
@@ -409,7 +415,7 @@ begin
         searchAndInsert(arr,wrd,totLet,usrL,lostLifes,tries,lD);            // search and insert letters in array
         picModule(pic,lostLifes);
         showSomeLetters(lD,arr,totLet,final);
-        possibleChallenge(totLet,aux,wrd,lostLifes,lD,tries);
+        possibleChallenge(totLet,aux,showword,lostLifes,lD,tries);
     end;    
 
     winner_Loser (lostLifes,show,pic,tries,arr,lD,showword,totLet); // show the winner or loser message and some statistics
@@ -432,8 +438,7 @@ begin
     writeln('Currently, only the classic mode is available. However, future updates may include a single-player mode, and');
     writeln('there are plans to develop an online multiplayer mode (Intended solely for educational purposes, should genuine');
     writeln('interest in the project arise. If implemented, the game will likely be hosted on a website.)');
-    writeln('This game is a simple project, thoughtfully crafted with care by Tomás Agustín Rossi, currently known under');
-    writeln('the temporary alias EpictetusHonor.');
+    writeln('This game is a simple project, thoughtfully crafted with care by Tomas Agustin Rossi');
     writeln;
     writeln;
     writeln('If you wish to return, press Enter.');
@@ -474,7 +479,7 @@ begin
         loadArray(logic_dim,arrayy,wordd);
         mainAxis(logic_dim,arrayy,wordd,show,pic);
         repeat
-            writeln('You want to GO to the MAIN MENU? y/n');
+            writeln('So... Do YOU and your FRIEND want to PLAY AGAIN? y/n');
             readln(endd);
             until ((endd = 'y') or (endd = 'Y') or (endd = 'n') or (endd = 'N'));
         until((endd='n') or (endd='N'));
@@ -482,5 +487,6 @@ end;
 
 begin           // main program
     mainMenu;
-readln;
+    writeln('Press enter to exit.');
+    readln;
 end.
