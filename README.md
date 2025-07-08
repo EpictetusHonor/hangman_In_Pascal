@@ -73,6 +73,8 @@ As of now, this is a personal and educational project developed for learning pur
 2. Compile the code (`F9` in Free Pascal).
 3. Run the program from the console and follow the instructions.
 
+**or always you can use the hangman .exe**
+
 ---
 
 ## 🧑‍🎓 Author
