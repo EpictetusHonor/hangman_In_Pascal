@@ -457,15 +457,15 @@ begin
         writeln('-------------------------------------');
         readln(instructionsYN);
         until ((instructionsYN = 'y') or (instructionsYN = 'Y') or (instructionsYN = 'n') or (instructionsYN = 'N'));
+    if (instructionsYN = 'y') or (instructionsYN = 'Y') then begin
+        instructions;
+    end;
     repeat
         //readln(mode);
         //while (mode<>1) do begin //thats for someone's who don't read instructions
         //    writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
         //    readln(mode);
         //    end;
-        if (instructionsYN = 'y') or (instructionsYN = 'Y') then begin
-            instructions;
-        end;
         chargingModule;
         picCreator(pic); // create the picture of the hangman and insert in array
 
