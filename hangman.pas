@@ -1,5 +1,7 @@
 program hangman;
-const MAX_LIFES = 6;
+uses
+  SysUtils;  // for the aleatory function working
+const MAX_LIFES = 6;MAX_PALABRAS = 1000;  // Número total de palabras en el diccionario
 type
     range = 1..46;  // range of letters, 46 is the maximum letters that i think is needed
     range2 = 0..MAX_LIFES;
@@ -17,9 +19,10 @@ procedure welcome;
 begin
     writeln('-----------------------------WELCOME TO HANGMAN!!!!-----------------------------');
     writeln;
-    //writeln('CHOOSE ONE OPTION: (just press one of those numbers and press Enter)');
-    //writeln('1- Classic');
-    // writeln('2- Competitive (1v1 with 2 words)');
+    writeln('NEXT THE INSTRUCTIONS CHOOSE ONE OPTION: (just press one of those numbers and press Enter)');
+    writeln('1- Classic Hangman Game (You and your friend can play)');
+    writeln('2- Solo Mode (Random words just to pass the time)');
+    // writeln('3- Competitive (1v1 with 2 words)');
     // writeln('3- One Player Mode (Random words just to pass the time)');
 end;
 procedure writeyourword;
@@ -27,6 +30,47 @@ begin
     writeLn('---------------------------------------------------');
     writeLn( 'WRITE your WORD and PRESS ENTER (all in lowercase)' );
     writeLn('---------------------------------------------------');
+end;
+function randomword: string; //another thing maked with a little help of "chatgpt", a randomizer function tu random get words for the 1 player game
+const
+  MAX_WORDS = 1000;
+var
+  Diccionary: array[1..MAX_WORDS] of string;
+  f: TextFile;
+  WORDS: string;
+  totalWORDS, i: Integer;
+begin
+  Randomize; // Get the time exact to get this aleatory magic
+  // Tries to get the file
+  Assign(f, 'nounlist.txt');
+  {$I-} // Inhabilite IO
+  Reset(f);
+  {$I+}
+  if IOResult <> 0 then
+  begin
+    randomword := '';  // Return void if not have txt
+    Exit;
+  end;
+
+  totalWORDS := 0;
+  while (not Eof(f)) and (totalWORDS < MAX_WORDS) do
+  begin
+    ReadLn(f, WORDS);
+    Inc(totalWORDS);
+    Diccionary[totalWORDS] := WORDS;
+  end;
+  Close(f);
+
+  if totalWORDS = 0 then
+  begin
+    randomword := ''; // Return void if not have words
+    Exit;
+  end;
+
+  indice := Random(totalWORDS) + 1;
+  WriteLn('Aleatory i: ', i);
+
+  randomword := Diccionary[i];
 end;
 procedure letstartthegame;
 begin
@@ -319,15 +363,17 @@ begin
     for i:=1 to lD do
         write(a[i],' ');
     if (not(final)) then begin // if you lose this avoid inspiring you to continue... you don't have the honor, and letters!.
-        if (aux<=2) then begin
+        if ((aux<=2)and(aux>0)) then begin
             writeln;
             writeln('---- You have ', aux, ' letters left! You can do it? ----');
             writeln;
         end
         else begin
-            writeln;
-            writeln('---- You have ', aux,' letters left! ----');
-            writeln;
+            if (aux>0) then begin
+                writeln;
+                writeln('---- You have ', aux,' letters left! ----');
+                writeln;
+                end;
             end;
     end;
 end;
@@ -450,15 +496,16 @@ var
     endd,instructionsYN: char;
     show: boolean;
     arrayy: letters;
-    //mode:integer;
+    mode:integer;
     logic_dim: integer;
     pic: picture;
 begin
+    show:=true; //show the correct word in the end of the game, inicialized here to make this effective to all the modes!
     welcome;
     repeat
         writeln;
         writeln('-------------------------------------');
-        writeln('Do you need to know the instructions?');
+        writeln('Do you need to know the instructions? y/n');
         writeln('-------------------------------------');
         readln(instructionsYN);
         until ((instructionsYN = 'y') or (instructionsYN = 'Y') or (instructionsYN = 'n') or (instructionsYN = 'N'));
@@ -466,20 +513,30 @@ begin
         instructions;
     end;
     repeat
-        //readln(mode);
-        //while (mode<>1) do begin //thats for someone's who don't read instructions
-        //    writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
-        //    readln(mode);
-        //    end;
+        writeln;
+        writeln('What mode do you want to play? Remember, only press "1" or "2"');
+        writeln;
+        readln(mode);
+        while ((mode<>1)and(mode<>2)) do begin //thats for someone's who don't read instructions
+            writeln('Did you forget to put your glasses on? Go get them and type one of the allowed numbers... I"ve got all day.');
+            readln(mode);
+            end;
         chargingModule;
         picCreator(pic); // create the picture of the hangman and insert in array
 
-        //if mode=1 then
-        ClassicFirstModule(wordd,show);
+        case mode of
+            1: ClassicFirstModule(wordd,show);
+            2: wordd:=randomword;
+            end;
         loadArray(logic_dim,arrayy,wordd);
         mainAxis(logic_dim,arrayy,wordd,show,pic);
         repeat
-            writeln('So... Do YOU and your FRIEND want to PLAY AGAIN? y/n');
+            if (mode=1) then begin
+                writeln('So... Do YOU and your FRIEND want to PLAY AGAIN? y/n');
+            end
+            else begin
+                writeln('So... Do YOU want to PLAY AGAIN? y/n');
+            end;
             readln(endd);
             until ((endd = 'y') or (endd = 'Y') or (endd = 'n') or (endd = 'N'));
         until((endd='n') or (endd='N'));
