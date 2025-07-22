@@ -3,7 +3,7 @@
 
 
 >✅  Actually working perfectly! <br>
->1️⃣  SOLO MODE ADDED <br>
+>❗  Single-player mode added corretly! <br>
 
 
                 
@@ -61,7 +61,7 @@ The following features are considered conceptual at this stage.
 They may be implemented in the future **only if the project proves valuable or meaningful to me**.  
 As of now, this is a personal and educational project developed for learning purposes.
 
-1. **Single-player mode** with randomly chosen words.  
+1. **Single-player mode** with randomly chosen words.  ✅ (ADDED)
 2. **Competitive mode** (1v1 with crossed words).  
 3. **Persistence**: score and player statistics storage.  
 4. **Internationalization (i18n)**: multilingual support (English/Spanish).  
