@@ -3,7 +3,7 @@
 
 
 >✅  Actually working perfectly! <br>
->1️⃣  (NEW MODE - SOLO MODE) <br>
+>1️⃣  SOLO MODE ADDED <br>
 
 
                 
