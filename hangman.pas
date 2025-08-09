@@ -1,6 +1,6 @@
 program hangman;
 uses
-  SysUtils;  // for the aleatory function working
+  SysUtils;  
 const MAX_LIFES = 6;MAX_PALABRAS = 1000;  // Número total de palabras en el diccionario
 type
     range = 1..46;  // range of letters, 46 is the maximum letters that i think is needed
@@ -31,24 +31,35 @@ begin
     writeLn( 'WRITE your WORD and PRESS ENTER (all in lowercase)' );
     writeLn('---------------------------------------------------');
 end;
-function randomword: string; //another thing maked with a little help of "chatgpt", a randomizer function tu random get words for the 1 player game
+
+function randomword: string;
 const
   MAX_WORDS = 1000;
 var
   Diccionary: array[1..MAX_WORDS] of string;
   f: TextFile;
   WORDS: string;
-  totalWORDS, i: Integer;
+  totalWORDS, indice: Integer;
 begin
-  Randomize; // Get the time exact to get this aleatory magic
-  // Tries to get the file
+  Randomize; // Initialize random seed
+
+  // Try to open the file
   Assign(f, 'nounlist.txt');
-  {$I-} // Inhabilite IO
+  {$I-} // Disable IO checking
   Reset(f);
   {$I+}
+
+  // If file not found or can't be opened
   if IOResult <> 0 then
   begin
-    randomword := '';  // Return void if not have txt
+    writeln('ERROR: The file "nounlist.txt" was not found in the same folder as Hangman.exe.');
+    writeln('Please make sure it is downloaded and placed in the correct directory, or go to https://github.com/EpictetusHonor/hangman_In_Pascal and download it.');
+    writeln('Single Player mode cannot start without this file.');
+    writeln;
+    writeln('---------------------------------------------------------------------------------------------------------------------------------------------------------');
+    writeln('Another option: create your own "nounlist.txt" in the same directory of "hangman.exe" and insert all the words you want to see in the Single-player mode.');
+    writeln('---------------------------------------------------------------------------------------------------------------------------------------------------------');
+    randomword := '';
     Exit;
   end;
 
@@ -63,15 +74,16 @@ begin
 
   if totalWORDS = 0 then
   begin
-    randomword := ''; // Return void if not have words
+    writeln('ERROR: The file "nounlist.txt" is empty.');
+    writeln('Please ensure it contains at least one word.');
+    randomword := '';
     Exit;
   end;
 
   indice := Random(totalWORDS) + 1;
-  WriteLn('Aleatory i: ', i);
-
-  randomword := Diccionary[i];
+  randomword := Diccionary[indice];
 end;
+
 procedure letstartthegame;
 begin
     writeln;writeln;writeln;
@@ -526,7 +538,15 @@ begin
 
         case mode of
             1: ClassicFirstModule(wordd,show);
-            2: wordd:=randomword;
+            2:  begin
+                    wordd := randomword;
+                    if wordd = '' then
+                    begin
+                        writeln;
+                        writeln('Returning to main menu...');
+                        Exit; // Exit mainMenu to avoid starting the game
+                    end;
+                end;
             end;
         loadArray(logic_dim,arrayy,wordd);
         mainAxis(logic_dim,arrayy,wordd,show,pic);
@@ -543,6 +563,7 @@ begin
 end;
 
 begin           // main program
+    
     mainMenu;
     writeln('Press enter to exit.');
     readln;
