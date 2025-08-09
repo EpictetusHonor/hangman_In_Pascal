@@ -75,7 +75,7 @@ As of now, this is a personal and educational project developed for learning pur
 2. Compile the code (`F9` in Free Pascal).
 3. Run the program from the console and follow the instructions.
 
-  **Or always you can use the hangman .exe with "nounlist.txt" for single-player mode allowed in hangman_In_Pascal/dist/**
+  **Or always you can use the hangman .exe with the file "nounlist.txt" allowed hangman_In_Pascal/dist/, download it and push this two files in the same folder**
 
 ---
 
