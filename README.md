@@ -5,7 +5,6 @@
 >✅  Actually working perfectly! <br>
 >❗  Single-player mode added! <br>
 
-
                 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
 
@@ -86,8 +85,14 @@ As of now, this is a personal and educational project developed for learning pur
 Temporary alias: *EpictetusHonor*  
 Project developed as part of university learning, aiming to integrate programming knowledge in a fun and educational way.
 
+For every part where AI was used, I added a comment making it clear, so it shows the rest is my own work.
+Of course, it’s normal to use AI for minor details, but I’d rather be upfront and transparent.
+
+In this 
 ---
 
 ## 📜 License
 
 This project is released under the MIT License for academic, personal, or educational use.
+
+(This README.txt was polished by an AI next the '<image src=..>' part. Thanks for read.).
