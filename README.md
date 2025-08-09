@@ -4,7 +4,6 @@
 
 >✅  Actually working perfectly! <br>
 >❗  Single-player mode added! <br>
->❌  Actually not working Single-player mode! <br>
 
 
                 
