@@ -95,4 +95,5 @@ In this
 
 This project is released under the MIT License for academic, personal, or educational use.
 
-(This README.txt was polished by an AI next the '<image src=..>' part. Thanks for read.).
+(This README.txt was polished by an AI next the '<image src=..>' part. However, it still clearly and honestly reflects my skills and attention to detail, which I focused on fully. 
+Thanks for read).
