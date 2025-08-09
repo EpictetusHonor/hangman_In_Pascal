@@ -62,11 +62,11 @@ They may be implemented in the future **only if the project proves valuable or m
 As of now, this is a personal and educational project developed for learning purposes.
 
 1. **Single-player mode** with randomly chosen words.  ✅ (ADDED)
-2. **Competitive mode** (1v1 with crossed words).  
-3. **Persistence**: score and player statistics storage.  
-4. **Internationalization (i18n)**: multilingual support (English/Spanish).  
-5. **Experimental Online Multiplayer**: foundation for educational client-server development.
-
+2. **Extra details**: Show all the letters you have already used.
+3. **Internationalization (i18n)**: multilingual support (English/Spanish).
+4. **Competitive mode** (1v1 with crossed words).  
+5. **Persistence**: score and player statistics storage.  
+6. **Experimental Online Multiplayer**: foundation for educational client-server development.
 ---
 
 ## 🧪 How to Compile and Run
