@@ -85,7 +85,7 @@ As of now, this is a personal and educational project developed for learning pur
 Temporary alias: *EpictetusHonor*  
 Project developed as part of university learning, aiming to integrate programming knowledge in a fun and educational way.
 
-For every part where AI was used, I added a comment making it clear, so it shows the rest is my own work.
+For every part where AI was used in the proyect, I added a comment making it clear, so it shows the rest is my own work.
 Of course, it’s normal to use AI for minor details, but I’d rather be upfront and transparent.
 
 In this 
@@ -95,5 +95,5 @@ In this
 
 This project is released under the MIT License for academic, personal, or educational use.
 
-(This README.txt was polished by an AI next the '<image src=..>' part. However, it still clearly and honestly reflects my skills and attention to detail, which I focused on fully. 
+(This README.txt was polished by an AI next the '<image src=>' part. However, it still clearly and honestly reflects my skills and attention to detail, which I focused on fully. 
 Thanks for read).
