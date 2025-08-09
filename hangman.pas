@@ -32,7 +32,7 @@ begin
     writeLn('---------------------------------------------------');
 end;
 
-function randomword: string;
+function randomword: string; // IA HELP IN THIS FUNCTION!
 const
   MAX_WORDS = 1000;
 var
@@ -538,7 +538,7 @@ begin
 
         case mode of
             1: ClassicFirstModule(wordd,show);
-            2:  begin
+            2:  begin //IA DETAILS FOR MISTAKE IN THE "nounlist.txt"
                     wordd := randomword;
                     if wordd = '' then
                     begin
